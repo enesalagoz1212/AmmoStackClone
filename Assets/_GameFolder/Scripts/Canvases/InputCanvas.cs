@@ -6,7 +6,7 @@ using AmmoStackClone.Managers;
 
 namespace AmmoStackClone.Canvases
 {
-    public class InputCanvas : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+	public class InputCanvas : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 	{
 		private InputManager _inputManager;
 		private bool _inputEnabled = true;
@@ -14,12 +14,14 @@ namespace AmmoStackClone.Canvases
 		public void Initialize(InputManager inputManager)
 		{
 			_inputManager = inputManager;
+		//	Debug.Log("1");
 		}
 
 		public void OnPointerDown(PointerEventData eventData)
 		{
 			if (_inputEnabled)
 			{
+			//	Debug.Log("2");
 				_inputManager.OnScreenTouch(eventData);
 			}
 		}
@@ -28,12 +30,14 @@ namespace AmmoStackClone.Canvases
 		{
 			if (_inputEnabled)
 			{
+			//	Debug.Log("3");
 				_inputManager.OnScreenDrag(eventData);
 			}
 		}
 
 		public void OnPointerUp(PointerEventData eventData)
 		{
+			//Debug.Log("4");
 			_inputManager.OnScreenUp(eventData);
 		}
 

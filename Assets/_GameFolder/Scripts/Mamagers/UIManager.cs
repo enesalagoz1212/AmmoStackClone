@@ -10,6 +10,7 @@ namespace AmmoStackClone.Managers
 		public static UIManager Instance { get; private set; }
 
 		[SerializeField] private InputCanvas inputCanvas;
+		[SerializeField] private GameCanvas gameCanvas;
 		private void Awake()
 		{
 			if (Instance == null)
@@ -25,6 +26,7 @@ namespace AmmoStackClone.Managers
 		public void Initialize(InputManager inputManager)
 		{
 			inputCanvas.Initialize(inputManager);
+			gameCanvas.Initialize();
 		}
 
 		void Start()
