@@ -29,6 +29,7 @@ namespace AmmoStackClone.Canvases
 		{
 			Debug.Log("OnPlayButtonClick calisti");
 			GameManager.Instance.ChangeState(GameState.Playing);
+			playButton.gameObject.SetActive(false);
 		}
 
 	}

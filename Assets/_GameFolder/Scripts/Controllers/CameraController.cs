@@ -28,7 +28,6 @@ namespace AmmoStackClone.Controllers
 		{
 			if (_levelManager.CurrentBulletTransform!=null)
 			{
-                Debug.Log("CurrentBulletTransform null degil");
                 Vector3 position = _levelManager.CurrentBulletTransform.position + offset;
                 position.y = _cameraY;
                 transform.position = position;
