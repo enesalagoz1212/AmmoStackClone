@@ -65,8 +65,8 @@ namespace AmmoStackClone.Managers
 
             Vector3 newPosition = LevelManager.Instance.CurrentBulletTransform.position + new Vector3(horizontalMovement, 0f, 0f);
 
-            float minX = -3.8f;
-            float maxX = 3.8f;
+            float minX = -5.5f;
+            float maxX = 2.1f;
             newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
 
             LevelManager.Instance.CurrentBulletTransform.position = newPosition;

@@ -29,8 +29,8 @@ namespace AmmoStackClone.Controllers
 
 		private void OnGameStart()
 		{
-			//initialPosition = new Vector3(0f, 0.75f, 0f);
-			//transform.position = initialPosition;
+			initialPosition = new Vector3(-1.29f, 0.7882054f, -1.81f);
+			transform.position = initialPosition;
 		}
 		void Start()
 		{
@@ -45,7 +45,7 @@ namespace AmmoStackClone.Controllers
 				case GameState.Start:
 					break;
 				case GameState.Playing:
-					transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+					transform.Translate(Vector3.right * forwardSpeed * Time.deltaTime);
 					break;
 				case GameState.End:
 					break;

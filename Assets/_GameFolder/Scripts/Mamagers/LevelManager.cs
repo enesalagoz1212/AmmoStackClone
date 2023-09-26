@@ -48,7 +48,10 @@ namespace AmmoStackClone.Managers
 
         public void SpawnBullet()
 		{
-            var bulletObject = Instantiate(bulletPrefab, bulletSpawnPosition, Quaternion.identity, bullets);
+            Vector3 eulerRotation = new Vector3(270f, 0f, -90f);
+            Quaternion rotation = Quaternion.Euler(eulerRotation);
+
+            var bulletObject = Instantiate(bulletPrefab, bulletSpawnPosition, rotation, bullets);
             CurrentBulletTransform = bulletObject.transform;
 		}
 
