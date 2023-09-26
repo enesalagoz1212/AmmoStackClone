@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 1369377747940997445}
   - component: {fileID: 8932786613730086607}
   - component: {fileID: 8932786613730086606}
-  - component: {fileID: 5308353259504965173}
+  - component: {fileID: -7327806376272928033}
   m_Layer: 0
   m_Name: Bullet1
   m_TagString: Untagged
@@ -96,7 +96,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.109076306, y: 0.5917813, z: 0.095120355}
   m_Center: {x: 0.000416259, y: 0.29303402, z: -0.00047405562}
---- !u!114 &5308353259504965173
+--- !u!114 &-7327806376272928033
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeed: 5
-  initialPosition: {x: -1.29, y: 0.7882054, z: -1.81}
+  initialPosition: {x: -1.29, y: 0.78, z: -1.81}
 --- !u!1 &1369377747941418343
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +162,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: a8e29ad525dccfd488e45c47fd58d6e9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

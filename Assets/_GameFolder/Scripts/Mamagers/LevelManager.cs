@@ -8,6 +8,8 @@ namespace AmmoStackClone.Managers
     {
         public static LevelManager Instance { get; private set; }
         public Transform CurrentBulletTransform { get; private set; }
+        public static  GameObject InitialBullet { get; private set; }
+
         public Transform bullets;
         public GameObject bulletPrefab;
         public Vector3 bulletSpawnPosition;
@@ -43,15 +45,15 @@ namespace AmmoStackClone.Managers
 
         private void OnGameStart()
 		{
-            SpawnBullet();
+            SpawnBullet(bulletSpawnPosition);
 		}
 
-        public void SpawnBullet()
+        public void SpawnBullet(Vector3 offset)
 		{
             Vector3 eulerRotation = new Vector3(270f, 0f, -90f);
             Quaternion rotation = Quaternion.Euler(eulerRotation);
 
-            var bulletObject = Instantiate(bulletPrefab, bulletSpawnPosition, rotation, bullets);
+            var bulletObject = Instantiate(bulletPrefab, offset, rotation, bullets);
             CurrentBulletTransform = bulletObject.transform;
 		}
 

@@ -48,13 +48,11 @@ namespace AmmoStackClone.Managers
         {
             if (!isInputEnabled || !_isDragging || LevelManager.Instance.CurrentBulletTransform == null)
             {
-                Debug.Log("OnScreenDrag1");
                 return;
             }
 
             if (GameManager.Instance.GameState != GameState.Playing) 
             {
-                Debug.Log("OnScreenDrag2");
                 return;
             }
 
