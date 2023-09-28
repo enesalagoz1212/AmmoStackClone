@@ -7,13 +7,18 @@ namespace AmmoStackClone.Managers
     public class LevelManager : MonoBehaviour
     {
         public static LevelManager Instance { get; private set; }
-        public Transform CurrentBulletTransform { get; private set; }
         public static  GameObject InitialBullet { get; private set; }
 
         public Transform bullets;
         public GameObject bulletPrefab;
         public Vector3 bulletSpawnPosition;
+        public Transform CurrentBulletTransform { get; private set; }
 
+        public Transform MovingSpawnObjectTransform
+        {
+            get { return CurrentBulletTransform; }
+            set { CurrentBulletTransform = value; }
+        }
 
         private void Awake()
         {
@@ -43,6 +48,7 @@ namespace AmmoStackClone.Managers
 			
 		}
 
+     
         private void OnGameStart()
 		{
             SpawnBullet(bulletSpawnPosition);

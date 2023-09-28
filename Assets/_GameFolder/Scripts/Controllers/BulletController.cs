@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AmmoStackClone.Managers;
+using AmmoStackClone.BulletCollisions;
 
 namespace AmmoStackClone.Controllers
 {
 	public class BulletController : MonoBehaviour
 	{
+		private LevelManager _levelManager;
 		private InputManager _inputManager;
 		public float forwardSpeed;
 		public Vector3 initialPosition;
 
-		public void Initialize(InputManager inputManager)
+		private bool isAttachedToPlayer = false;
+		public void Initialize(InputManager inputManager,LevelManager levelManager)
 		{
 			_inputManager = inputManager;
+			_levelManager = levelManager;
 		}
 
 		private void OnEnable()
@@ -31,6 +35,8 @@ namespace AmmoStackClone.Controllers
 		{
 			initialPosition = new Vector3(-1.29f, 0.7882054f, -1.81f);
 			transform.position = initialPosition;
+
+			
 		}
 		private void Start()
 		{
@@ -45,7 +51,7 @@ namespace AmmoStackClone.Controllers
 				case GameState.Start:
 					break;
 				case GameState.Playing:
-					transform.Translate(Vector3.right * forwardSpeed * Time.deltaTime);
+					transform.position += transform.right * forwardSpeed * Time.deltaTime;
 					break;
 				case GameState.End:
 					break;
@@ -57,25 +63,24 @@ namespace AmmoStackClone.Controllers
 
 		}
 
-		private void OnCollisionEnter(Collision collision)
-		{
-			if (collision.gameObject.CompareTag("Bullet"))
+		
+			private void OnTriggerEnter(Collider other)
 			{
+				if (other.CompareTag("Bullet") && !isAttachedToPlayer)
+				{
+					isAttachedToPlayer = true;
 
+					Transform playerTransform = other.transform;
+					Transform bulletTransform = transform;
+					bulletTransform.SetParent(playerTransform);
 
+				
+					Vector3 offset = playerTransform.right * (bulletTransform.localScale.z / 2f + 1f);
+					bulletTransform.position = playerTransform.position + offset;
 
-				collision.gameObject.transform.localScale = transform.localScale;
-
-				Vector3 offset = new Vector3(0, 0, 1);
-				Vector3 spawnPos = new Vector3(transform.position.x, transform.position.y, transform.position.z) + offset;
-
-				collision.gameObject.transform.parent = transform;
-
-			
-				collision.gameObject.transform.position = spawnPos;
-				collision.gameObject.tag = "Untagged";
+				}
 			}
-		}
+			
 	}
 }
 
