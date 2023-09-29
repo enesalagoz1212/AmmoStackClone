@@ -18,7 +18,7 @@ namespace AmmoStackClone.BulletCollisions
 				transform.localScale = scale;
 
 				Vector3 playerPosition = other.transform.position;
-				Vector3 newPosition = new Vector3(playerPosition.x, transform.position.y, transform.position.z+0.3f);
+				Vector3 newPosition = new Vector3(playerPosition.x, transform.position.y+0.15f, transform.position.z+0.3f);
 				transform.position = newPosition;
 			}
 			
