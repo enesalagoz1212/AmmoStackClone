@@ -14,7 +14,7 @@ namespace AmmoStackClone.Controllers
 		public Vector3 initialPosition;
 
 		private bool isAttachedToPlayer = false;
-		public void Initialize(InputManager inputManager,LevelManager levelManager)
+		public void Initialize(InputManager inputManager, LevelManager levelManager)
 		{
 			_inputManager = inputManager;
 			_levelManager = levelManager;
@@ -36,7 +36,7 @@ namespace AmmoStackClone.Controllers
 			initialPosition = new Vector3(-1.29f, 0.7882054f, -1.81f);
 			transform.position = initialPosition;
 
-			
+
 		}
 		private void Start()
 		{
@@ -63,24 +63,16 @@ namespace AmmoStackClone.Controllers
 
 		}
 
-		
-			private void OnTriggerEnter(Collider other)
+
+		private void OnTriggerEnter(Collider other)
+		{
+			if (other.CompareTag("Bullet"))
 			{
-				if (other.CompareTag("Bullet") && !isAttachedToPlayer)
-				{
-					isAttachedToPlayer = true;
-
-					Transform playerTransform = other.transform;
-					Transform bulletTransform = transform;
-					bulletTransform.SetParent(playerTransform);
-
-				
-					Vector3 offset = playerTransform.right * (bulletTransform.localScale.z / 2f + 1f);
-					bulletTransform.position = playerTransform.position + offset;
-
-				}
+				other.transform.SetParent(transform);
+				other.tag = "Player";		
 			}
-			
+		}
+
 	}
 }
 

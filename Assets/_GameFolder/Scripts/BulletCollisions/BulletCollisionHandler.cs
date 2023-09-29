@@ -6,43 +6,24 @@ namespace AmmoStackClone.BulletCollisions
 {
 	public class BulletCollisionHandler : MonoBehaviour
 	{
-        private bool isAttachedToPlayer = false;
-        private Transform mainBullet;
-    
+		private bool isAttachedToPlayer = false;
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Player") && !isAttachedToPlayer)
-            {
-                isAttachedToPlayer = true;
+		private void OnTriggerEnter(Collider other)
+		{
+			if (other.CompareTag("Player") && !isAttachedToPlayer)
+			{
+				isAttachedToPlayer = true;
 
-                Vector3 scale = other.transform.localScale;
-                transform.localScale = scale;
+				Vector3 scale = new Vector3(6f, 6f, 6f);
+				transform.localScale = scale;
 
-                Transform playerTransform = other.transform;
-                transform.SetParent(playerTransform);
+				Vector3 playerPosition = other.transform.position;
+				Vector3 newPosition = new Vector3(playerPosition.x, transform.position.y, transform.position.z+0.3f);
+				transform.position = newPosition;
+			}
+			
+		}
 
-                Vector3 offset = playerTransform.right * (scale.z / 2f + 1f);
-                transform.position = playerTransform.position + offset;
-
-                Rigidbody rb = GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.isKinematic = true;
-                }
-                mainBullet = transform;
-            }
-            else if (other.CompareTag("Bullet") && mainBullet != null)
-            {
-
-                Vector3 scale = mainBullet.localScale;
-                Vector3 offset = mainBullet.right * (scale.z / 2f + 1f);
-                transform.position = mainBullet.position + offset;
-
-                mainBullet = transform;
-            }
-        }
-
-    }
+	}
 }
 
