@@ -5,35 +5,27 @@ using AmmoStackClone.Managers;
 
 namespace AmmoStackClone.Controllers
 {
-    public class CameraController : MonoBehaviour
-    {
-        private LevelManager _levelManager;
-        
-        public GameObject bullet;
-        public Vector3 offset;
-        private float _cameraY;
+	public class CameraController : MonoBehaviour
+	{
 
-        public void Initialize(LevelManager levelManager)
-		{
-            _levelManager = levelManager;
-		}
-        void Start()
+
+        public Transform target; // Kameranýn takip edeceði hedef (PlayerController'ýn transformu)
+        public float zOffset;
+        public float xPosition;
+        public float yPosition;
+
+        void Update()
         {
-            _cameraY = transform.position.y;
-            offset = transform.position - bullet.transform.position;
-           
+            if (target != null)
+            {
+                
+                    // Kameranýn X ve Y pozisyonlarýný PlayerController'ýn X ve Y pozisyonlarýna sabitlerken, Z pozisyonunu belirli bir mesafede tutma
+                    Vector3 newPosition = new Vector3(xPosition, yPosition, target.position.z + zOffset);
+                    transform.position = newPosition;
+                
+            }
         }
 
-		private void LateUpdate()
-		{
-			if (_levelManager.CurrentBulletTransform!=null)
-			{
-                Vector3 position = _levelManager.CurrentBulletTransform.position + offset;
-                position.y = _cameraY;
-                transform.position = position;
-            }
-            
-		}
     }
 }
 

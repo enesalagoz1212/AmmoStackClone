@@ -10,7 +10,6 @@ namespace AmmoStackClone.Controllers
 	{
 		private LevelManager _levelManager;
 		private InputManager _inputManager;
-		public float forwardSpeed;
 		public Vector3 initialPosition;
 
 		private bool isAttachedToPlayer = false;
@@ -48,20 +47,7 @@ namespace AmmoStackClone.Controllers
 
 		private void Update()
 		{
-			switch (GameManager.Instance.GameState)
-			{
-				case GameState.Start:
-					break;
-				case GameState.Playing:
-					transform.position += transform.right * forwardSpeed * Time.deltaTime;
-					break;
-				case GameState.End:
-					break;
-				case GameState.Reset:
-					break;
-				default:
-					break;
-			}
+			
 
 		}
 
@@ -85,25 +71,25 @@ namespace AmmoStackClone.Controllers
 		{
 			Material newMaterial = null;
 
-			// Tag'e göre doðru malzemeyi seç
+		
 			switch (tag)
 			{
 				case "blue":
-					newMaterial = materials[0]; // BlueMaterial, mavi renk malzemesini temsil eder
+					newMaterial = materials[0];
 					break;
 				case "yellow":
-					newMaterial = materials[1]; // YellowMaterial, sarý renk malzemesini temsil eder
+					newMaterial = materials[1]; 
 					break;
 				case "red":
-					newMaterial = materials[2]; // RedMaterial, kýrmýzý renk malzemesini temsil eder
+					newMaterial = materials[2];
 					break;
 				case "green":
-					newMaterial = materials[3]; // GreenMaterial, yeþil renk malzemesini temsil eder
+					newMaterial = materials[3]; 
 					break;
 
 			}
 
-			// Malzemeyi deðiþtir
+		
 			if (newMaterial != null)
 			{
 				SkinnedMeshRenderer skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();

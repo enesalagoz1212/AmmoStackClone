@@ -12,15 +12,15 @@ namespace AmmoStackClone.Managers
         public Transform bullets;
         public GameObject bulletPrefab;
         public Vector3 bulletSpawnPosition;
-        public Transform CurrentBulletTransform { get; private set; }
+		public Transform CurrentBulletTransform { get; private set; }
 
-        public Transform MovingSpawnObjectTransform
-        {
-            get { return CurrentBulletTransform; }
-            set { CurrentBulletTransform = value; }
-        }
+		public Transform MovingSpawnObjectTransform
+		{
+			get { return CurrentBulletTransform; }
+			set { CurrentBulletTransform = value; }
+		}
 
-        private void Awake()
+		private void Awake()
         {
             if (Instance != null && Instance != this)
             {
@@ -60,7 +60,7 @@ namespace AmmoStackClone.Managers
             Quaternion rotation = Quaternion.Euler(eulerRotation);
 
             var bulletObject = Instantiate(bulletPrefab, offset, rotation, bullets);
-            CurrentBulletTransform = bulletObject.transform;
+           
 		}
 
     }

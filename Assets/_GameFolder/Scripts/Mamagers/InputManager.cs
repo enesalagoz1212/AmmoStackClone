@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using AmmoStackClone.Controllers;
 
 namespace AmmoStackClone.Managers
 {
@@ -9,6 +10,8 @@ namespace AmmoStackClone.Managers
 	{
 		public static InputManager Instance { get; private set; }
 		public bool isInputEnabled { get; private set; } = true;
+
+        private PlayerController _playerController;
 
         public float horizontalSpeed;
         private float _firstTouchX;
@@ -27,8 +30,9 @@ namespace AmmoStackClone.Managers
             }
         }
 
-        public void Initialize()
+        public void Initialize(PlayerController playerController)
         {
+            _playerController = playerController;
             _isDragging = false;
         }
 
@@ -46,12 +50,12 @@ namespace AmmoStackClone.Managers
 
         public void OnScreenDrag(PointerEventData eventData)
         {
-            if (!isInputEnabled || !_isDragging || LevelManager.Instance.CurrentBulletTransform == null)
-            {
-                return;
-            }
+			if (!isInputEnabled || !_isDragging )
+			{
+				return;
+			}
 
-            if (GameManager.Instance.GameState != GameState.Playing) 
+			if (GameManager.Instance.GameState != GameState.Playing) 
             {
                 return;
             }
@@ -61,14 +65,8 @@ namespace AmmoStackClone.Managers
 
             float horizontalMovement = diff * horizontalSpeed * Time.deltaTime;
 
-            Vector3 newPosition = LevelManager.Instance.CurrentBulletTransform.position + new Vector3(horizontalMovement, 0f, 0f);
-
-            float minX = -5.5f;
-            float maxX = 2.1f;
-            newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
-
-            LevelManager.Instance.CurrentBulletTransform.position = newPosition;
-
+            _playerController.MoveHorizontal(horizontalMovement);
+ 
             _firstTouchX = lastTouch;
         }
 

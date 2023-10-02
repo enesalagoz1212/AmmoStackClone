@@ -27,6 +27,7 @@ namespace AmmoStackClone.Managers
 		[SerializeField] private UIManager uiManager;
 		[SerializeField] private CameraController cameraController;
 		[SerializeField] private LevelManager levelManager;
+		[SerializeField] private PlayerController playerController;
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -46,10 +47,10 @@ namespace AmmoStackClone.Managers
 		private void GameInitialize()
 		{
 			levelManager.Initialize();
-			inputManager.Initialize();
+			inputManager.Initialize(playerController);
 			bulletController.Initialize(inputManager,levelManager);
 			uiManager.Initialize(inputManager);
-			cameraController.Initialize(levelManager);
+			//cameraController.Initialize();
 			OnGameStart();
 		}
 		void Update()
