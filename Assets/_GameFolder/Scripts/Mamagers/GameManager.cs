@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using AmmoStackClone.Controllers;
+using AmmoStackClone.BulletCollisions;
 
 namespace AmmoStackClone.Managers
 {
@@ -28,6 +29,7 @@ namespace AmmoStackClone.Managers
 		[SerializeField] private CameraController cameraController;
 		[SerializeField] private LevelManager levelManager;
 		[SerializeField] private PlayerController playerController;
+		[SerializeField] private BulletCollisionHandler bulletCollisionHandler;
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -48,9 +50,11 @@ namespace AmmoStackClone.Managers
 		{
 			levelManager.Initialize();
 			inputManager.Initialize(playerController);
-			bulletController.Initialize(inputManager,levelManager);
+			bulletController.Initialize(inputManager,levelManager,bulletCollisionHandler);
 			uiManager.Initialize(inputManager);
 			//cameraController.Initialize();
+			bulletCollisionHandler.Initialize();
+
 			OnGameStart();
 		}
 		void Update()

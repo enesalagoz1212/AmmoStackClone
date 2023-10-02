@@ -10,15 +10,19 @@ namespace AmmoStackClone.Controllers
 	{
 		private LevelManager _levelManager;
 		private InputManager _inputManager;
+		private BulletCollisionHandler _bulletCollisionHandler;
 		public Vector3 initialPosition;
 
 		private bool isAttachedToPlayer = false;
 
-		public Material[] materials = new Material[4];
-		public void Initialize(InputManager inputManager, LevelManager levelManager)
+
+		public void Initialize(InputManager inputManager, LevelManager levelManager,BulletCollisionHandler bulletCollisionHandler)
 		{
 			_inputManager = inputManager;
 			_levelManager = levelManager;
+			_bulletCollisionHandler = bulletCollisionHandler;
+
+
 		}
 
 		private void OnEnable()
@@ -36,9 +40,8 @@ namespace AmmoStackClone.Controllers
 		{
 			initialPosition = new Vector3(-1.29f, 0.7882054f, -1.81f);
 			transform.position = initialPosition;
-
-
 		}
+
 		private void Start()
 		{
 
@@ -56,49 +59,19 @@ namespace AmmoStackClone.Controllers
 		{
 			if (other.CompareTag("Bullet"))
 			{
+				Vector3 scale = new Vector3(6f, 6f, 6f);
+				other.transform.localScale = scale;
+
+
+				Vector3 playerPosition = other.transform.position;
+				Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, playerPosition.z + 0.5f);
+				other.transform.position = newPosition;
+
 				other.transform.SetParent(transform);
 				other.tag = "Player";
 			}
-
-
-			if (other.CompareTag("Red") || other.CompareTag("Blue") || other.CompareTag("Green") || other.CompareTag("Yellow"))
-			{
-				ChangeColorByTag(other.tag);
-			}
-		}
-
-		private void ChangeColorByTag(string tag)
-		{
-			Material newMaterial = null;
-
 		
-			switch (tag)
-			{
-				case "blue":
-					newMaterial = materials[0];
-					break;
-				case "yellow":
-					newMaterial = materials[1]; 
-					break;
-				case "red":
-					newMaterial = materials[2];
-					break;
-				case "green":
-					newMaterial = materials[3]; 
-					break;
-
-			}
-
-		
-			if (newMaterial != null)
-			{
-				SkinnedMeshRenderer skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
-				if (skinnedMeshRenderer != null)
-				{
-					skinnedMeshRenderer.material = newMaterial;
-				}
-			}
-		}
+		}		
 	}
 }
 

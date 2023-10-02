@@ -7,7 +7,6 @@ namespace AmmoStackClone.Controllers
 {
 	public class PlayerController : MonoBehaviour
 	{		
-		public float moveSpeed;
 		public float forwardSpeed;
 		public void Initialize()
 		{
@@ -22,7 +21,7 @@ namespace AmmoStackClone.Controllers
 				case GameState.Start:
 					break;
 				case GameState.Playing:
-					transform.position += transform.forward * forwardSpeed * Time.deltaTime;
+					MoveForward();
 					break;
 				case GameState.End:
 					break;
@@ -31,6 +30,11 @@ namespace AmmoStackClone.Controllers
 				default:
 					break;
 			}
+		}
+
+		public void MoveForward()
+		{
+			transform.position += transform.forward * forwardSpeed * Time.deltaTime;
 		}
 
 		public void MoveHorizontal(float horizontalMovement)
