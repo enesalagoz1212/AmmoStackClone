@@ -13,10 +13,10 @@ namespace AmmoStackClone.Controllers
 		private BulletCollisionHandler _bulletCollisionHandler;
 		public Vector3 initialPosition;
 
-		private bool isAttachedToPlayer = false;
+		private List<GameObject> collidedBullets = new List<GameObject>();
 
 
-		public void Initialize(InputManager inputManager, LevelManager levelManager,BulletCollisionHandler bulletCollisionHandler)
+		public void Initialize(InputManager inputManager, LevelManager levelManager, BulletCollisionHandler bulletCollisionHandler)
 		{
 			_inputManager = inputManager;
 			_levelManager = levelManager;
@@ -50,7 +50,7 @@ namespace AmmoStackClone.Controllers
 
 		private void Update()
 		{
-			
+
 
 		}
 
@@ -59,6 +59,19 @@ namespace AmmoStackClone.Controllers
 		{
 			if (other.CompareTag("Bullet"))
 			{
+				if (!HasBulletInFront(other))
+				{
+					collidedBullets.Add(other.gameObject);
+				}
+
+				int index = collidedBullets.FindIndex(item => item.CompareTag("Player"));
+				if (index != -1)
+				{
+					collidedBullets.RemoveAt(index);
+					collidedBullets.Insert(0, other.gameObject);
+				}
+
+
 				Vector3 scale = new Vector3(6f, 6f, 6f);
 				other.transform.localScale = scale;
 
@@ -70,8 +83,20 @@ namespace AmmoStackClone.Controllers
 				other.transform.SetParent(transform);
 				other.tag = "Player";
 			}
-		
-		}		
+
+		}
+		private bool HasBulletInFront(Collider other)
+		{
+			Collider[] collidersInFront = Physics.OverlapSphere(other.transform.position + Vector3.forward * 0.5f, 0.1f);
+			foreach (Collider collider in collidersInFront)
+			{
+				if (collider.CompareTag("Bullet"))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 }
 
