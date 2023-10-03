@@ -14,7 +14,7 @@ namespace AmmoStackClone.Controllers
 		public Vector3 initialPosition;
 
 		private List<GameObject> collidedBullets = new List<GameObject>();
-
+		private float zSpacing = 0.5f;
 
 		public void Initialize(InputManager inputManager, LevelManager levelManager, BulletCollisionHandler bulletCollisionHandler)
 		{
@@ -59,43 +59,35 @@ namespace AmmoStackClone.Controllers
 		{
 			if (other.CompareTag("Bullet"))
 			{
-				if (!HasBulletInFront(other))
-				{
-					collidedBullets.Add(other.gameObject);
-				}
+				collidedBullets.Add(other.gameObject);
 
-				int index = collidedBullets.FindIndex(item => item.CompareTag("Player"));
-				if (index != -1)
-				{
-					collidedBullets.RemoveAt(index);
-					collidedBullets.Insert(0, other.gameObject);
-				}
+				collidedBullets.Sort((a, b) => a.transform.position.z.CompareTo(b.transform.position.z));
+				SortingOnZ();
 
+				foreach (GameObject item in collidedBullets)
+				{
+					Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, item.transform.position.z);
+					item.transform.position = newPosition;
+				}
 
 				Vector3 scale = new Vector3(6f, 6f, 6f);
 				other.transform.localScale = scale;
-
-
-				Vector3 playerPosition = other.transform.position;
-				Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, playerPosition.z + 0.5f);
-				other.transform.position = newPosition;
 
 				other.transform.SetParent(transform);
 				other.tag = "Player";
 			}
 
 		}
-		private bool HasBulletInFront(Collider other)
+
+		private void SortingOnZ()
 		{
-			Collider[] collidersInFront = Physics.OverlapSphere(other.transform.position + Vector3.forward * 0.5f, 0.1f);
-			foreach (Collider collider in collidersInFront)
+			float currentZ = transform.position.z;
+			for (int i = 0; i < collidedBullets.Count; i++)
 			{
-				if (collider.CompareTag("Bullet"))
-				{
-					return true;
-				}
+				float newZ = currentZ + i * zSpacing;
+				Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, newZ);
+				collidedBullets[i].transform.position = newPosition;
 			}
-			return false;
 		}
 	}
 }
