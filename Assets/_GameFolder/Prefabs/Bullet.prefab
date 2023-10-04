@@ -108,13 +108,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28bfffb98092be64589e333f07c71b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 5
   initialPosition: {x: -1.29, y: 0.78, z: -1.81}
-  materials:
-  - {fileID: 2100000, guid: c1221046bbb661746b8666660b9ffea6, type: 2}
-  - {fileID: 2100000, guid: cc02861536ac76b4fbbf24c785c80ded, type: 2}
-  - {fileID: 2100000, guid: e42f1ae2c05ed8146a79d6c9bd00b097, type: 2}
-  - {fileID: 2100000, guid: 7dfbb4ece1dff034b9fba4c19802f8fe, type: 2}
+  redMaterial: {fileID: 2100000, guid: e42f1ae2c05ed8146a79d6c9bd00b097, type: 2}
+  yellowMaterial: {fileID: 2100000, guid: cc02861536ac76b4fbbf24c785c80ded, type: 2}
+  blueMaterial: {fileID: 2100000, guid: c1221046bbb661746b8666660b9ffea6, type: 2}
+  greenMaterial: {fileID: 2100000, guid: 7dfbb4ece1dff034b9fba4c19802f8fe, type: 2}
 --- !u!1 &1369377747941418343
 GameObject:
   m_ObjectHideFlags: 0

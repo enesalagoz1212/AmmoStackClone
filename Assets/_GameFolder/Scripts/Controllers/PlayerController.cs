@@ -6,11 +6,12 @@ using AmmoStackClone.Managers;
 namespace AmmoStackClone.Controllers
 {
 	public class PlayerController : MonoBehaviour
-	{		
+	{
+		private BulletController _bulletController;
 		public float forwardSpeed;
-		public void Initialize()
+		public void Initialize(BulletController bulletController)
 		{
-
+			_bulletController = bulletController;
 		}
 
 
@@ -41,11 +42,12 @@ namespace AmmoStackClone.Controllers
 		{
 			Vector3 currentPosition = transform.position;
 			currentPosition.x += horizontalMovement;
-			float minX = -4.2f; 
-			float maxX = 3.4f;  
+			float minX = -4.2f;
+			float maxX = 3.4f;
 
 			currentPosition.x = Mathf.Clamp(currentPosition.x, minX, maxX);
 			transform.position = currentPosition;
+
 		}
 	}
 }
