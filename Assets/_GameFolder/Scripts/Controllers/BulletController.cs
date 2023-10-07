@@ -55,7 +55,33 @@ namespace AmmoStackClone.Controllers
 
 		private void Update()
 		{
+			if (collidedBullets.Count > 0)
+			{
+				float mainX = transform.position.x;
+				float currentY= transform.position.y;
+				float currentZ = transform.position.z;
+				for (var i = 0; i < collidedBullets.Count; i++)
+				{
+					var bulletTransform = collidedBullets[i].transform;
+					var bulletPosX = bulletTransform.position.x;
+
+					var targetX = Mathf.Lerp(bulletPosX, mainX, Time.deltaTime * 16f);
+					float newZ = currentZ + (i + 1) * zSpacing;
+					bulletTransform.position = new Vector3(targetX, currentY, newZ);
+
+					mainX = bulletPosX;
+				}
+			}
+
+			return;
 			
+			// float currentZ = transform.position.z;
+			// for (int i = 0; i < collidedBullets.Count; i++)
+			// {
+			// 	float newZ = currentZ + i * zSpacing;
+			// 	Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, newZ);
+			// 	collidedBullets[i].transform.position = newPosition;
+			// }
 		}
 
 		private void OnTriggerEnter(Collider other)
@@ -67,20 +93,20 @@ namespace AmmoStackClone.Controllers
 
 				collidedBullets.Sort((a, b) => a.transform.position.z.CompareTo(b.transform.position.z));
 
-				SortingOnZ();
+				// SortingOnZ();
 
-				foreach (GameObject item in collidedBullets)
-				{
-					Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, item.transform.position.z + 0.8f);
-					item.transform.position = newPosition;
-				}
+				// foreach (GameObject item in collidedBullets)
+				// {
+				// 	Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, item.transform.position.z + 0.8f);
+				// 	item.transform.position = newPosition;
+				// }
 
-				Debug.Log("collidedBullets listesinin eleman sayýsý: " + collidedBullets.Count);
+				Debug.Log("collidedBullets listesinin eleman sayï¿½sï¿½: " + collidedBullets.Count);
 
 				Vector3 scale = new Vector3(6f, 6f, 6f);
 				other.transform.localScale = scale;
 
-				other.transform.SetParent(transform);
+				// other.transform.SetParent(transform);
 				other.tag = "Player";
 
 			}
