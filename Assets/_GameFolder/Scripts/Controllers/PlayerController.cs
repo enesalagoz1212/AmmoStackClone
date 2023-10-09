@@ -42,8 +42,8 @@ namespace AmmoStackClone.Controllers
 		{
 			Vector3 currentPosition = transform.position;
 			currentPosition.x += horizontalMovement;
-			float minX = -4.2f;
-			float maxX = 3.4f;
+			float minX = -3.47f;
+			float maxX = 3.61f;
 
 			currentPosition.x = Mathf.Clamp(currentPosition.x, minX, maxX);
 			transform.position = currentPosition;

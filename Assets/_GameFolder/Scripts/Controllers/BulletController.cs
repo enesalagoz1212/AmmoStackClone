@@ -16,10 +16,8 @@ namespace AmmoStackClone.Controllers
 		private List<GameObject> collidedBullets = new List<GameObject>();
 		private float zSpacing = 0.8f;
 
-		public Material redMaterial;
-		public Material yellowMaterial;
-		public Material blueMaterial;
-		public Material greenMaterial;
+		public Material[] bulletMaterials;
+
 		public void Initialize(InputManager inputManager, LevelManager levelManager, BulletCollisionHandler bulletCollisionHandler)
 		{
 			_inputManager = inputManager;
@@ -53,8 +51,10 @@ namespace AmmoStackClone.Controllers
 		}
 
 
+
 		private void Update()
 		{
+
 			if (collidedBullets.Count > 0)
 			{
 				float mainX = transform.position.x;
@@ -65,8 +65,8 @@ namespace AmmoStackClone.Controllers
 					var bulletTransform = collidedBullets[i].transform;
 					var bulletPosX = bulletTransform.position.x;
 
-					var targetX = Mathf.Lerp(bulletPosX, mainX, Time.deltaTime * 16f);
-					float newZ = currentZ + (i + 1) * zSpacing;
+					var targetX = Mathf.Lerp(bulletPosX, mainX, Time.deltaTime * 10f);
+					float newZ = currentZ + (i + 0.8f) * zSpacing;
 					bulletTransform.position = new Vector3(targetX, currentY, newZ);
 
 					mainX = bulletPosX;
@@ -74,14 +74,6 @@ namespace AmmoStackClone.Controllers
 			}
 
 			return;
-			
-			// float currentZ = transform.position.z;
-			// for (int i = 0; i < collidedBullets.Count; i++)
-			// {
-			// 	float newZ = currentZ + i * zSpacing;
-			// 	Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, newZ);
-			// 	collidedBullets[i].transform.position = newPosition;
-			// }
 		}
 
 		private void OnTriggerEnter(Collider other)
@@ -89,88 +81,69 @@ namespace AmmoStackClone.Controllers
 			if (other.CompareTag("Bullet"))
 			{
 				GameObject bullet = other.gameObject;
-				collidedBullets.Add(bullet);
+				collidedBullets.Add(bullet);			
 
-				collidedBullets.Sort((a, b) => a.transform.position.z.CompareTo(b.transform.position.z));
+				Debug.Log("collidedBullets listesinin eleman sayisi: " + collidedBullets.Count);
 
-				// SortingOnZ();
-
-				// foreach (GameObject item in collidedBullets)
-				// {
-				// 	Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, item.transform.position.z + 0.8f);
-				// 	item.transform.position = newPosition;
-				// }
-
-				Debug.Log("collidedBullets listesinin eleman sayï¿½sï¿½: " + collidedBullets.Count);
-
-				Vector3 scale = new Vector3(6f, 6f, 6f);
+				Vector3 scale = new Vector3(0.5f, 3f, 0.5f);
 				other.transform.localScale = scale;
 
-				// other.transform.SetParent(transform);
-				other.tag = "Player";
-
+				other.tag = "Player";	
 			}
 
-
-			string collidedTag = other.tag;
-			Material newMaterial = null;
-
-			switch (collidedTag)
+			if (other.CompareTag("Red") || other.CompareTag("Blue") || other.CompareTag("Yellow") || other.CompareTag("Green"))
 			{
-				case "Red":
-					newMaterial = redMaterial;
-					Debug.Log("Red");
-					break;
-				case "Yellow":
-					newMaterial = yellowMaterial;
-					Debug.Log("Yellow");
-					break;
-				case "Blue":
-					newMaterial = blueMaterial;
-					Debug.Log("Blue");
-					break;
-				case "Green":
-					newMaterial = greenMaterial;
-					Debug.Log("Green");
-					break;
-				default:
-					newMaterial = null;
-					Debug.Log("Unknown Tag");
-					break;
-			}
+				int materialIndex = GetMaterialIndexByTag(other.tag);
 
-			if (newMaterial != null)
-			{
-				ChangeMaterial(newMaterial, other.gameObject);
+				if (materialIndex != -1)
+				{
+					ChangeMaterial(bulletMaterials[materialIndex], gameObject);
+				}
+
+				foreach (GameObject bullet in collidedBullets)
+				{
+					// Liste elemanýnýn etiketini kontrol et ve uygun malzeme indeksini al
+					if (bullet.CompareTag("Red") || bullet.CompareTag("Blue") || bullet.CompareTag("Yellow") || bullet.CompareTag("Green"))
+					{
+						int bulletMaterialIndex = GetMaterialIndexByTag(bullet.tag);
+
+						if (bulletMaterialIndex != -1)
+						{
+							// Her bir liste elemanýnýn rengini deðiþtir
+							ChangeMaterial(bulletMaterials[bulletMaterialIndex], bullet);
+						}
+					}
+				}
 			}
 		}
-
-		private void SortingOnZ()
-		{
-			float currentZ = transform.position.z;
-			for (int i = 0; i < collidedBullets.Count; i++)
-			{
-				float newZ = currentZ + i * zSpacing;
-				Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, newZ);
-				collidedBullets[i].transform.position = newPosition;
-			}
-		}
-
-
 
 		private void ChangeMaterial(Material newMaterial, GameObject bullet)
 		{
-			SkinnedMeshRenderer renderer = bullet.GetComponentInChildren<SkinnedMeshRenderer>();
+			Renderer renderer = bullet.GetComponent<Renderer>();
 			if (renderer != null)
 			{
-				Material[] materials = renderer.materials;
-				for (int i = 0; i < materials.Length; i++)
-				{
-					materials[i] = newMaterial;
-				}
-				renderer.materials = materials;
+				renderer.material = newMaterial;
 			}
 		}
+
+		private int GetMaterialIndexByTag(string tag)
+		{
+			switch (tag)
+			{
+				case "Red":
+					return 0;
+				case "Blue":
+					return 1;
+				case "Yellow":
+					return 2;
+				case "Green":
+					return 3;
+				default:
+					return -1; // tanimsiz tag
+			}
+		}
+
+
 	}
 }
 

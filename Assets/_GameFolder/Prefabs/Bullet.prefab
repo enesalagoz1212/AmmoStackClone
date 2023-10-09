@@ -113,6 +113,8 @@ MonoBehaviour:
   yellowMaterial: {fileID: 2100000, guid: cc02861536ac76b4fbbf24c785c80ded, type: 2}
   blueMaterial: {fileID: 2100000, guid: c1221046bbb661746b8666660b9ffea6, type: 2}
   greenMaterial: {fileID: 2100000, guid: 7dfbb4ece1dff034b9fba4c19802f8fe, type: 2}
+  parentObject: {fileID: 1369377747941418341}
+  spacingBetweenBullets: 1
 --- !u!1 &1369377747941418343
 GameObject:
   m_ObjectHideFlags: 0
