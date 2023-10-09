@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 192095065801104483}
   - component: {fileID: -3959327103061177298}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: BulletCube
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3082202636935163576}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.19, y: 0.78, z: -1.81}
   m_LocalScale: {x: 0.5, y: 3, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28bfffb98092be64589e333f07c71b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialPosition: {x: 0, y: 0, z: 0}
+  initialPosition: {x: 2.11, y: 0.78, z: -1.81}
 --- !u!114 &192095065801104483
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -63,7 +63,7 @@ namespace AmmoStackClone.Controllers
 					var bulletTransform = collidedBullets[i].transform;
 					var bulletPosX = bulletTransform.position.x;
 
-					var targetX = Mathf.Lerp(bulletPosX, mainX, Time.deltaTime * 10f);
+					var targetX = Mathf.Lerp(bulletPosX, mainX, Time.deltaTime * 16f);
 					float newZ = currentZ + (i + 0.8f) * zSpacing;
 					bulletTransform.position = new Vector3(targetX, currentY, newZ);
 
