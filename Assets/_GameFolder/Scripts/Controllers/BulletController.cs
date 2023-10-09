@@ -100,20 +100,7 @@ namespace AmmoStackClone.Controllers
 					ChangeMaterial(bulletMaterials[materialIndex], gameObject);
 				}
 
-				foreach (GameObject bullet in collidedBullets)
-				{
-					// Liste elemanýnýn etiketini kontrol et ve uygun malzeme indeksini al
-					if (bullet.CompareTag("Red") || bullet.CompareTag("Blue") || bullet.CompareTag("Yellow") || bullet.CompareTag("Green"))
-					{
-						int bulletMaterialIndex = GetMaterialIndexByTag(bullet.tag);
-
-						if (bulletMaterialIndex != -1)
-						{
-							// Her bir liste elemanýnýn rengini deðiþtir
-							ChangeMaterial(bulletMaterials[bulletMaterialIndex], bullet);
-						}
-					}
-				}
+				
 			}
 		}
 
