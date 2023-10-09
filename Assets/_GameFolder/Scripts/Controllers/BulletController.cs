@@ -16,8 +16,6 @@ namespace AmmoStackClone.Controllers
 		private List<GameObject> collidedBullets = new List<GameObject>();
 		private float zSpacing = 0.8f;
 
-		public Material[] bulletMaterials;
-
 		public void Initialize(InputManager inputManager, LevelManager levelManager, BulletCollisionHandler bulletCollisionHandler)
 		{
 			_inputManager = inputManager;
@@ -88,49 +86,10 @@ namespace AmmoStackClone.Controllers
 				Vector3 scale = new Vector3(0.5f, 3f, 0.5f);
 				other.transform.localScale = scale;
 
+				
 				other.tag = "Player";	
 			}
-
-			if (other.CompareTag("Red") || other.CompareTag("Blue") || other.CompareTag("Yellow") || other.CompareTag("Green"))
-			{
-				int materialIndex = GetMaterialIndexByTag(other.tag);
-
-				if (materialIndex != -1)
-				{
-					ChangeMaterial(bulletMaterials[materialIndex], gameObject);
-				}
-
-				
-			}
 		}
-
-		private void ChangeMaterial(Material newMaterial, GameObject bullet)
-		{
-			Renderer renderer = bullet.GetComponent<Renderer>();
-			if (renderer != null)
-			{
-				renderer.material = newMaterial;
-			}
-		}
-
-		private int GetMaterialIndexByTag(string tag)
-		{
-			switch (tag)
-			{
-				case "Red":
-					return 0;
-				case "Blue":
-					return 1;
-				case "Yellow":
-					return 2;
-				case "Green":
-					return 3;
-				default:
-					return -1; // tanimsiz tag
-			}
-		}
-
-
 	}
 }
 
