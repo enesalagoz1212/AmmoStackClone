@@ -1285,6 +1285,7 @@ GameObject:
   - component: {fileID: 915419595}
   - component: {fileID: 915419594}
   - component: {fileID: 915419593}
+  - component: {fileID: 915419596}
   m_Layer: 0
   m_Name: FinishCube
   m_TagString: Finish
@@ -1370,6 +1371,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 915419591}
   m_Mesh: {fileID: 0}
+--- !u!114 &915419596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915419591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256d8378cff2a6f4bb93e730d26e8432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 963562998}
 --- !u!1 &963562997
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ namespace AmmoStackClone.Canvases
 {
     public class EndCanvas : MonoBehaviour
     {
-		public Transform target;
+	
         void Start()
         {
 
@@ -20,19 +20,7 @@ namespace AmmoStackClone.Canvases
         }
 
 
-		private void OnTriggerEnter(Collider other)
-		{
-			
-
-			if (other.CompareTag("Finish"))
-			{
-				transform.DOScale(Vector3.zero, 1f).OnComplete(() =>
-				{
-					Debug.Log("OnCompleted");
-				});
-				transform.DOMove(target.position, 1f);
-			}
-		}
+		
 	}
 }
 
