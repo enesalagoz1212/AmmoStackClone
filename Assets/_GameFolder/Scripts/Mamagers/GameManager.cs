@@ -53,7 +53,7 @@ namespace AmmoStackClone.Managers
 			bulletController.Initialize(inputManager,levelManager,bulletCollisionHandler);
 			uiManager.Initialize(inputManager);
 			//cameraController.Initialize();
-			bulletCollisionHandler.Initialize();
+			//bulletCollisionHandler.Initialize();
 			playerController.Initialize(bulletController);
 
 			OnGameStart();

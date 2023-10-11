@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace AmmoStackClone.BulletCollisions
 {
@@ -25,7 +26,6 @@ namespace AmmoStackClone.BulletCollisions
 					ChangeMaterial(bulletMaterials[materialIndex], gameObject);
 				}
 			}
-			
 		}
 
 		private void ChangeMaterial(Material newMaterial, GameObject obj)
