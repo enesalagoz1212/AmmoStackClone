@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace AmmoStackClone.Managers
 {
@@ -11,7 +12,8 @@ namespace AmmoStackClone.Managers
         public Transform bullets;
         public GameObject bulletPrefab;
         public Vector3 bulletSpawnPosition;
-	
+
+        private int _currentLevel = 1;    
 		private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -26,7 +28,7 @@ namespace AmmoStackClone.Managers
 
         public void Initialize()
 		{
-
+            LoadLevel(_currentLevel);
 		}
 
 		private void OnEnable()
@@ -45,6 +47,20 @@ namespace AmmoStackClone.Managers
 		{
             SpawnBullet(bulletSpawnPosition);
 		}
+
+        public void LoadLevel(int levelIndex)
+        {
+            string levelName = "Level" + levelIndex;
+            //SceneManager.LoadScene(levelName);
+        }
+
+
+      
+        public void NextLevel()
+        {
+            _currentLevel++;
+            LoadLevel(_currentLevel);
+        }
 
         public void SpawnBullet(Vector3 offset)
 		{

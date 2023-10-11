@@ -52,8 +52,7 @@ namespace AmmoStackClone.Managers
 			inputManager.Initialize(playerController);
 			bulletController.Initialize(inputManager,levelManager,bulletCollisionHandler);
 			uiManager.Initialize(inputManager);
-			//cameraController.Initialize();
-			//bulletCollisionHandler.Initialize();
+			bulletCollisionHandler.Initialize();
 			playerController.Initialize(bulletController);
 
 			OnGameStart();
@@ -66,6 +65,11 @@ namespace AmmoStackClone.Managers
 		private void OnGameStart()
 		{
 			ChangeState(GameState.Start);
+		}
+
+		public void EndGame()
+		{
+			ChangeState(GameState.End);
 		}
 
 		public void ChangeState(GameState gameState)

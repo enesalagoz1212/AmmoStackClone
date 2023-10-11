@@ -81,13 +81,15 @@ namespace AmmoStackClone.Controllers
 				GameObject bullet = other.gameObject;
 				collidedBullets.Add(bullet);			
 
-				Debug.Log("collidedBullets listesinin eleman sayisi: " + collidedBullets.Count);
-
 				Vector3 scale = new Vector3(0.5f, 3f, 0.5f);
 				other.transform.localScale = scale;
 
 				
-				other.tag = "Player";	
+				other.tag = "Player";
+			}
+			else if (other.CompareTag("Finish"))
+			{
+				GameManager.Instance.EndGame();
 			}
 		}
 	}
