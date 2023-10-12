@@ -8,11 +8,14 @@ namespace AmmoStackClone.Controllers
 	public class PlayerController : MonoBehaviour
 	{
 		private BulletController _bulletController;
+
+		private Vector3 _initialPosition;
 		public float forwardSpeed;
 		private bool _canMove = true;
 		public void Initialize(BulletController bulletController)
 		{
 			_bulletController = bulletController;
+			_initialPosition = transform.position;
 		}
 
 
@@ -21,6 +24,7 @@ namespace AmmoStackClone.Controllers
 			switch (GameManager.Instance.GameState)
 			{
 				case GameState.Start:
+					_canMove = false;
 					break;
 				case GameState.Playing:
 					_canMove = true;
@@ -29,6 +33,7 @@ namespace AmmoStackClone.Controllers
 					_canMove = false;
 					break;
 				case GameState.Reset:
+					ResetPlayer();
 					break;
 				default:
 					break;
@@ -60,6 +65,11 @@ namespace AmmoStackClone.Controllers
 			currentPosition.x = Mathf.Clamp(currentPosition.x, minX, maxX);
 			transform.position = currentPosition;
 
+		}
+
+		public void ResetPlayer()
+		{
+			transform.position = _initialPosition; 
 		}
 	}
 }

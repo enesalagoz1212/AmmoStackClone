@@ -929,7 +929,6 @@ GameObject:
   m_Component:
   - component: {fileID: 665398494}
   - component: {fileID: 665398495}
-  - component: {fileID: 665398496}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Player
@@ -966,19 +965,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeed: 9
---- !u!65 &665398496
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665398493}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &753009396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,7 +1104,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &776403530
 Transform:
   m_ObjectHideFlags: 0
@@ -1449,7 +1435,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1001377968
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2606,7 +2592,8 @@ MonoBehaviour:
   bullets: {fileID: 1215090654}
   bulletPrefab: {fileID: 3082202636935163576, guid: c705792503c5e7e4580228c4a825a83b,
     type: 3}
-  bulletSpawnPosition: {x: 0.33, y: 0.78, z: -3}
+  bulletSpawnPosition: {x: 0.33, y: 0.78, z: 0}
+  levels: {fileID: 973839477}
 --- !u!1 &1581984965
 GameObject:
   m_ObjectHideFlags: 0

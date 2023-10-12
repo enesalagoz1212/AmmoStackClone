@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using AmmoStackClone.Controllers;
 using AmmoStackClone.BulletCollisions;
+using DG.Tweening;
 
 namespace AmmoStackClone.Managers
 {
@@ -20,7 +21,7 @@ namespace AmmoStackClone.Managers
 		public GameState GameState { get; set; }
 
 		public static Action OnGameStarted;
-		public static Action OnGameEnd;
+		public static Action<bool> OnGameEnd;
 		public static Action OnGameReset;
 
 		[SerializeField] private InputManager inputManager;
@@ -50,7 +51,7 @@ namespace AmmoStackClone.Managers
 		{
 			levelManager.Initialize();
 			inputManager.Initialize(playerController);
-			bulletController.Initialize(inputManager,levelManager,bulletCollisionHandler);
+			bulletController.Initialize(inputManager, levelManager, bulletCollisionHandler);
 			uiManager.Initialize(inputManager);
 			bulletCollisionHandler.Initialize();
 			playerController.Initialize(bulletController);
@@ -67,12 +68,21 @@ namespace AmmoStackClone.Managers
 			ChangeState(GameState.Start);
 		}
 
-		public void EndGame()
+		public void EndGame(bool isSuccessful)
 		{
 			ChangeState(GameState.End);
 		}
 
-		public void ChangeState(GameState gameState)
+		public void ResetGame()
+		{
+			DOVirtual.DelayedCall(1f, () =>
+			{
+				ChangeState(GameState.Reset);
+				OnGameStart();
+			});
+		}
+
+		public void ChangeState(GameState gameState, bool isSuccessful = false)
 		{
 			GameState = gameState;
 
@@ -86,8 +96,10 @@ namespace AmmoStackClone.Managers
 				case GameState.Playing:
 					break;
 				case GameState.End:
+					OnGameEnd?.Invoke(isSuccessful);
 					break;
 				case GameState.Reset:
+					OnGameReset?.Invoke();
 					break;
 			}
 		}

@@ -2,75 +2,107 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 namespace AmmoStackClone.Managers
 {
-    public class LevelManager : MonoBehaviour
-    {
-        public static LevelManager Instance { get; private set; }
+	public class LevelManager : MonoBehaviour
+	{
+		public static LevelManager Instance { get; private set; }
 
-        public Transform bullets;
-        public GameObject bulletPrefab;
-        public Vector3 bulletSpawnPosition;
+		public Transform bullets;
+		public GameObject bulletPrefab;
+		public Vector3 bulletSpawnPosition;
 
-        private int _currentLevel = 1;    
+		public GameObject levels;
+		private int _currentLevel = 1;
 		private void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(this);
-            }
-            else
-            {
-                Instance = this;
-            }
-        }
-
-        public void Initialize()
 		{
-            LoadLevel(_currentLevel);
+			if (Instance != null && Instance != this)
+			{
+				Destroy(this);
+			}
+			else
+			{
+				Instance = this;
+			}
+		}
+
+		public void Initialize()
+		{
+			
 		}
 
 		private void OnEnable()
 		{
-            GameManager.OnGameStarted += OnGameStart;
+			GameManager.OnGameStarted += OnGameStart;
+			GameManager.OnGameEnd += OnGameEnd;
 		}
 
 		private void OnDisable()
 		{
-            GameManager.OnGameStarted -= OnGameStart;
+			GameManager.OnGameStarted -= OnGameStart;
+			GameManager.OnGameEnd -= OnGameEnd;
+
+		}
+
+		private void Start()
+		{
+			SpawnBullet(bulletSpawnPosition);
+		}
+
+		private void OnGameStart()
+		{
+			EnableLevel(_currentLevel);
 			
 		}
 
-     
-        private void OnGameStart()
+		private void OnGameEnd(bool isSuccessful)
 		{
-            SpawnBullet(bulletSpawnPosition);
+			if (!isSuccessful)
+			{
+				DOVirtual.DelayedCall(1f, () =>
+				{
+					CompleteLevel();
+				});
+
+			}
 		}
 
-        public void LoadLevel(int levelIndex)
-        {
-            string levelName = "Level" + levelIndex;
-            //SceneManager.LoadScene(levelName);
-        }
-
-
-      
-        public void NextLevel()
-        {
-            _currentLevel++;
-            LoadLevel(_currentLevel);
-        }
-
-        public void SpawnBullet(Vector3 offset)
+		private void EnableLevel(int levelIndex)
 		{
-            Vector3 eulerRotation = new Vector3(270f, 0f, -90f);
-            Quaternion rotation = Quaternion.Euler(eulerRotation);
-
-            var bulletObject = Instantiate(bulletPrefab, offset, rotation, bullets);
-           
+			GameObject level = levels.transform.Find("Level" + levelIndex).gameObject;
+			if (level != null)
+			{
+				level.SetActive(true);
+			}
 		}
 
-    }
+		private void DisableLevel(int levelIndex)
+		{
+			GameObject level = levels.transform.Find("Level" + levelIndex).gameObject;
+			if (level != null)
+			{
+				level.SetActive(false);
+			}
+		}
+
+		public void CompleteLevel()
+		{
+			DisableLevel(_currentLevel);
+			_currentLevel++;
+			EnableLevel(_currentLevel);
+		}
+
+		public void SpawnBullet(Vector3 offset)
+		{
+			Vector3 eulerRotation = new Vector3(270f, 0f, -90f);
+			Quaternion rotation = Quaternion.Euler(eulerRotation);
+
+			var bulletObject = Instantiate(bulletPrefab, offset, rotation, bullets);
+
+		}
+
+	}
 
 }

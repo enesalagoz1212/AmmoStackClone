@@ -11,7 +11,7 @@ namespace AmmoStackClone.Controllers
 		private LevelManager _levelManager;
 		private InputManager _inputManager;
 		private BulletCollisionHandler _bulletCollisionHandler;
-		public Vector3 initialPosition;
+		private Vector3 initialPosition;
 
 		private List<GameObject> collidedBullets = new List<GameObject>();
 		private float zSpacing = 0.8f;
@@ -28,11 +28,13 @@ namespace AmmoStackClone.Controllers
 		private void OnEnable()
 		{
 			GameManager.OnGameStarted += OnGameStart;
+			GameManager.OnGameReset += OnGameReset;
 		}
 
 		private void OnDisable()
 		{
 			GameManager.OnGameStarted -= OnGameStart;
+			GameManager.OnGameReset -= OnGameReset;
 
 		}
 
@@ -40,7 +42,18 @@ namespace AmmoStackClone.Controllers
 		{
 			initialPosition = new Vector3(-1.29f, 0.7882054f, -1.81f);
 			transform.position = initialPosition;
+		}
 
+		private void OnGameReset()
+		{
+			Debug.Log("collidedBullets Count: " + collidedBullets.Count);
+			collidedBullets.Clear();
+			Debug.Log("collidedBullets Count: " + collidedBullets.Count);
+
+			Vector3 scale = new Vector3(0.5f, 3f, 0.5f);
+			transform.localScale = scale;
+
+		
 		}
 
 		private void Start()
@@ -56,7 +69,7 @@ namespace AmmoStackClone.Controllers
 			if (collidedBullets.Count > 0)
 			{
 				float mainX = transform.position.x;
-				float currentY= transform.position.y;
+				float currentY = transform.position.y;
 				float currentZ = transform.position.z;
 				for (var i = 0; i < collidedBullets.Count; i++)
 				{
@@ -79,17 +92,18 @@ namespace AmmoStackClone.Controllers
 			if (other.CompareTag("Bullet"))
 			{
 				GameObject bullet = other.gameObject;
-				collidedBullets.Add(bullet);			
+				collidedBullets.Add(bullet);
 
 				Vector3 scale = new Vector3(0.5f, 3f, 0.5f);
 				other.transform.localScale = scale;
 
-				
+
 				other.tag = "Player";
 			}
 			else if (other.CompareTag("Finish"))
 			{
-				GameManager.Instance.EndGame();
+				GameManager.Instance.EndGame(true);
+				GameManager.Instance.ResetGame();
 			}
 		}
 	}
