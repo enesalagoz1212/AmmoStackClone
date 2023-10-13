@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AmmoStackClone.Managers;
+using DG.Tweening;
 
 namespace AmmoStackClone.Controllers
 {
@@ -18,7 +19,16 @@ namespace AmmoStackClone.Controllers
 			_initialPosition = transform.position;
 		}
 
+		private void OnEnable()
+		{
+			GameManager.OnGameEnd += OnGameEnd;
+		}
 
+		private void OnDisable()
+		{
+			GameManager.OnGameEnd -= OnGameEnd;
+
+		}
 		void Update()
 		{
 			switch (GameManager.Instance.GameState)
@@ -33,7 +43,6 @@ namespace AmmoStackClone.Controllers
 					_canMove = false;
 					break;
 				case GameState.Reset:
-					ResetPlayer();
 					break;
 				default:
 					break;
@@ -45,6 +54,16 @@ namespace AmmoStackClone.Controllers
 			}
 		}
 
+		private void OnGameEnd(bool isSuccessful)
+		{
+			if (!isSuccessful)
+			{
+				DOVirtual.DelayedCall(1f, () =>
+				{
+					ResetPlayer();
+				});
+			}
+		}
 		public void MoveForward()
 		{
 			transform.position += transform.forward * forwardSpeed * Time.deltaTime;
@@ -69,7 +88,8 @@ namespace AmmoStackClone.Controllers
 
 		public void ResetPlayer()
 		{
-			transform.position = _initialPosition; 
+			_initialPosition = new Vector3(0f, 0f, 0f);
+			transform.localPosition = _initialPosition;
 		}
 	}
 }

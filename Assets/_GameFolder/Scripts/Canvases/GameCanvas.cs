@@ -15,14 +15,22 @@ namespace AmmoStackClone.Canvases
 			playButton.onClick.AddListener(OnPlayButtonClick);
 
 		}
-		void Start()
+
+		private void OnEnable()
 		{
+			GameManager.OnGameReset += OnGameReset;
 
 		}
 
-		void Update()
+		private void OnDisable()
 		{
-
+			GameManager.OnGameReset -= OnGameReset;
+			
+		}
+		
+		private void OnGameReset()
+		{
+			playButton.gameObject.SetActive(true);
 		}
 
 		private void OnPlayButtonClick()

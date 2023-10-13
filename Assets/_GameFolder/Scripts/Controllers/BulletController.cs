@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using AmmoStackClone.Managers;
 using AmmoStackClone.BulletCollisions;
+using DG.Tweening;
 
 namespace AmmoStackClone.Controllers
 {
 	public class BulletController : MonoBehaviour
 	{
+
 		private LevelManager _levelManager;
 		private InputManager _inputManager;
 		private BulletCollisionHandler _bulletCollisionHandler;
-		private Vector3 initialPosition;
+		private Vector3 _initialPosition;
 
 		private List<GameObject> collidedBullets = new List<GameObject>();
 		private float zSpacing = 0.8f;
@@ -29,19 +31,21 @@ namespace AmmoStackClone.Controllers
 		{
 			GameManager.OnGameStarted += OnGameStart;
 			GameManager.OnGameReset += OnGameReset;
+			GameManager.OnGameEnd += OnGameEnd;
 		}
 
 		private void OnDisable()
 		{
 			GameManager.OnGameStarted -= OnGameStart;
 			GameManager.OnGameReset -= OnGameReset;
+			GameManager.OnGameEnd -= OnGameEnd;
 
 		}
 
+
 		private void OnGameStart()
 		{
-			initialPosition = new Vector3(-1.29f, 0.7882054f, -1.81f);
-			transform.position = initialPosition;
+
 		}
 
 		private void OnGameReset()
@@ -53,7 +57,20 @@ namespace AmmoStackClone.Controllers
 			Vector3 scale = new Vector3(0.5f, 3f, 0.5f);
 			transform.localScale = scale;
 
-		
+
+		}
+
+		private void OnGameEnd(bool isSuccessful)
+		{
+			if (!isSuccessful)
+			{
+				DOVirtual.DelayedCall(1f, () =>
+				{
+					_initialPosition = new Vector3(0.23f, 0.78f, -1.81f);
+					transform.localPosition= _initialPosition;
+				});
+			
+			}
 		}
 
 		private void Start()
