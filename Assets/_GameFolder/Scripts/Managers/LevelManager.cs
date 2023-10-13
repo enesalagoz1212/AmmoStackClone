@@ -66,19 +66,17 @@ namespace AmmoStackClone.Managers
 		{
 			if (isSuccessful)
 			{
-				CreateNextLevel(); // Seviye tamamlandýðýnda bir sonraki seviyeyi oluþtur
+				CreateNextLevel(); 
 			}
 		}
 
 		public void CreateNextLevel()
 		{
-			// Önceki seviyeyi yok et
 			if (currentLevel != null)
 			{
 				Destroy(currentLevel);
 			}
 
-			// Þu anki seviyenin prefabýný al
 			if (_currentLevelIndex < levelPrefabs.Length)
 			{
 				GameObject nextLevelPrefab = levelPrefabs[_currentLevelIndex];
@@ -87,8 +85,7 @@ namespace AmmoStackClone.Managers
 			}
 			else
 			{
-				// Tüm seviyeler tamamlandýysa oyunu bitir
-				GameManager.Instance.EndGame(true); // GameManager.Instance'ý çaðýrarak oyunu bitir
+				GameManager.Instance.EndGame(true);
 			}
 		}
 
