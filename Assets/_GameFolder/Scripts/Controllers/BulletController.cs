@@ -121,7 +121,6 @@ namespace AmmoStackClone.Controllers
 			else if (other.CompareTag("Finish"))
 			{
 				GameManager.Instance.EndGame(true);
-				GameManager.Instance.ResetGame();
 			}
 		}
 	}

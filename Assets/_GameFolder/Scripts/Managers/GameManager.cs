@@ -71,6 +71,15 @@ namespace AmmoStackClone.Managers
 		public void EndGame(bool isSuccessful)
 		{
 			ChangeState(GameState.End);
+
+			if (isSuccessful)
+			{
+				PlayerPrefsManager.CurrentLevel++;
+			}
+			else
+			{
+				
+			}
 		}
 
 		public void ResetGame()

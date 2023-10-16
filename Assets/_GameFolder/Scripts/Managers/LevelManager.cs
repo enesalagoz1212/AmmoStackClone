@@ -10,12 +10,8 @@ namespace AmmoStackClone.Managers
 	{
 		public static LevelManager Instance { get; private set; }
 
-		public Transform bullets;
-		public GameObject bulletPrefab;
-		public Vector3 bulletSpawnPosition;
-
 		public GameObject levels;
-		private int _currentLevelIndex = 0;
+		private int _currentLevelIndex;
 		public GameObject[] levelPrefabs;
 
 		private GameObject currentLevel;
@@ -62,28 +58,16 @@ namespace AmmoStackClone.Managers
 		{
 			if (!isSuccessful)
 			{
-				PlayerPrefsManager.CurrentLevel = _currentLevelIndex;
 				_currentLevelIndex++;
-				Debug.Log("enes");
-				CreateNextLevel();
 			}
 		}
 
 		public void CreateNextLevel()
 		{
-			//if (currentLevel != null)
-			//{
-			//	Destroy(currentLevel);
-			//}
-
 			if (_currentLevelIndex < levelPrefabs.Length)
 			{
 				GameObject nextLevelPrefab = levelPrefabs[_currentLevelIndex - 1];
 				currentLevel = Instantiate(nextLevelPrefab, levels.transform);
-			}
-			else
-			{
-				GameManager.Instance.EndGame(true);
 			}
 		}
 
