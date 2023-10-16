@@ -34,8 +34,7 @@ namespace AmmoStackClone.Managers
 
 		public void Initialize()
 		{
-
-
+			_currentLevelIndex = PlayerPrefsManager.CurrentLevel;
 		}
 
 
@@ -54,34 +53,33 @@ namespace AmmoStackClone.Managers
 
 		private void OnGameStart()
 		{
-			if (currentLevel != null)
-			{
-				Destroy(currentLevel);
-			}
+
 			CreateNextLevel();
 			//SpawnBullet(bulletSpawnPosition);
 		}
 
 		private void OnGameEnd(bool isSuccessful)
 		{
-			if (isSuccessful)
+			if (!isSuccessful)
 			{
-				CreateNextLevel(); 
+				PlayerPrefsManager.CurrentLevel = _currentLevelIndex;
+				_currentLevelIndex++;
+				Debug.Log("enes");
+				CreateNextLevel();
 			}
 		}
 
 		public void CreateNextLevel()
 		{
-			if (currentLevel != null)
-			{
-				Destroy(currentLevel);
-			}
+			//if (currentLevel != null)
+			//{
+			//	Destroy(currentLevel);
+			//}
 
 			if (_currentLevelIndex < levelPrefabs.Length)
 			{
-				GameObject nextLevelPrefab = levelPrefabs[_currentLevelIndex];
+				GameObject nextLevelPrefab = levelPrefabs[_currentLevelIndex - 1];
 				currentLevel = Instantiate(nextLevelPrefab, levels.transform);
-				_currentLevelIndex++;
 			}
 			else
 			{

@@ -206,7 +206,7 @@ PrefabInstance:
     - target: {fileID: 4010411407294411726, guid: c705792503c5e7e4580228c4a825a83b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.23
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4010411407294411726, guid: c705792503c5e7e4580228c4a825a83b,
         type: 3}
@@ -588,7 +588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1001377968
 RectTransform:
   m_ObjectHideFlags: 0
@@ -608,7 +608,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 7.298, y: 224.812}
-  m_SizeDelta: {x: 192.032, y: 63.6}
+  m_SizeDelta: {x: 224.55, y: 63.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1001377969
 MonoBehaviour:
@@ -630,8 +630,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -765,6 +765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playButton: {fileID: 1973563413}
+  levelText: {fileID: 1518175849}
 --- !u!1 &1068293565
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,7 +992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6195ec7065bb4dc4db7511cad531a00f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 0.5
+  horizontalSpeed: 1
 --- !u!1 &1215090653
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,7 +1051,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518175847}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0015286976}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1059,7 +1060,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000074643435, y: 0.00000017616549}
+  m_AnchoredPosition: {x: 0.9, y: -3.4}
   m_SizeDelta: {x: 173.2, y: 44.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1518175849
@@ -1082,10 +1083,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 1
+  m_text: LEVEL 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
-  m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1116,8 +1117,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1145,7 +1146,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 29.178482, y: -1.6047134, z: 23.871902, w: -3.9187489}
+  m_margin: {x: -20.663273, y: -10.897118, z: -22.262562, w: -3.9187489}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1213,6 +1214,7 @@ MonoBehaviour:
   - {fileID: 3684139462765779458, guid: b12737f3729287046879a23db08be869, type: 3}
   - {fileID: 128209336085892069, guid: a795b16f3da50194ab90ebac8a2066f8, type: 3}
   - {fileID: 6231719277306042403, guid: e4e6ec877ec85e646a898946d9d563de, type: 3}
+  - {fileID: 3684139462765779458, guid: d9eb8bb8eb7693c46b6d288315dd270e, type: 3}
 --- !u!1 &1581984965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,7 +1267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 1210210228}
-  bulletController: {fileID: -7327806376272928033, guid: 82266b5dd1ae09446935b43580543b76,
+  bulletController: {fileID: 1809891015501391448, guid: c705792503c5e7e4580228c4a825a83b,
     type: 3}
   uiManager: {fileID: 753009398}
   cameraController: {fileID: 1847742816}

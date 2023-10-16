@@ -116,6 +116,7 @@ namespace AmmoStackClone.Controllers
 
 
 				other.tag = "Player";
+
 			}
 			else if (other.CompareTag("Finish"))
 			{
