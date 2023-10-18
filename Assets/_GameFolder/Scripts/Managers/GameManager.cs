@@ -78,7 +78,7 @@ namespace AmmoStackClone.Managers
 			}
 			else
 			{
-				
+
 			}
 		}
 
@@ -87,11 +87,15 @@ namespace AmmoStackClone.Managers
 			DOVirtual.DelayedCall(1f, () =>
 			{
 				ChangeState(GameState.Reset);
-				OnGameStart();
+
+				DOVirtual.DelayedCall(3f, () =>
+				{
+					OnGameStart();
+				});
 			});
 		}
 
-		public void ChangeState(GameState gameState, bool isSuccessful = false)
+		public void ChangeState(GameState gameState, bool isSuccessful = true)
 		{
 			GameState = gameState;
 
@@ -106,6 +110,7 @@ namespace AmmoStackClone.Managers
 					break;
 				case GameState.End:
 					OnGameEnd?.Invoke(isSuccessful);
+					ResetGame();
 					break;
 				case GameState.Reset:
 					OnGameReset?.Invoke();

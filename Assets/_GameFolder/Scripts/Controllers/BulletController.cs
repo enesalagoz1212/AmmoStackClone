@@ -18,6 +18,7 @@ namespace AmmoStackClone.Controllers
 		private List<GameObject> collidedBullets = new List<GameObject>();
 		private float zSpacing = 0.8f;
 
+
 		public void Initialize(InputManager inputManager, LevelManager levelManager, BulletCollisionHandler bulletCollisionHandler)
 		{
 			_inputManager = inputManager;
@@ -54,22 +55,24 @@ namespace AmmoStackClone.Controllers
 			collidedBullets.Clear();
 			Debug.Log("collidedBullets Count: " + collidedBullets.Count);
 
-			Vector3 scale = new Vector3(0.5f, 3f, 0.5f);
-			transform.localScale = scale;
-
-
+			DOVirtual.DelayedCall(3f, () =>
+			{
+				Vector3 scale = new Vector3(0.5f, 3f, 0.5f);
+				transform.localScale = scale;
+			});
 		}
 
 		private void OnGameEnd(bool isSuccessful)
 		{
-			if (!isSuccessful)
+			if (isSuccessful)
 			{
-				DOVirtual.DelayedCall(1f, () =>
+				Debug.Log("Basarili");
+				DOVirtual.DelayedCall(3f, () =>
 				{
 					_initialPosition = new Vector3(0.23f, 0.78f, -1.81f);
-					transform.localPosition= _initialPosition;
+					transform.localPosition = _initialPosition;
 				});
-			
+
 			}
 		}
 

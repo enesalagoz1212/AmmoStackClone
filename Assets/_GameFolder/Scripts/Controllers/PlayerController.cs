@@ -10,6 +10,7 @@ namespace AmmoStackClone.Controllers
 	{
 		private BulletController _bulletController;
 
+		public GameObject bullets;
 		private Vector3 _initialPosition;
 		public float forwardSpeed;
 		private bool _canMove = true;
@@ -21,11 +22,13 @@ namespace AmmoStackClone.Controllers
 
 		private void OnEnable()
 		{
+			GameManager.OnGameStarted += OnGameStart;
 			GameManager.OnGameEnd += OnGameEnd;
 		}
 
 		private void OnDisable()
 		{
+			GameManager.OnGameStarted -= OnGameStart;
 			GameManager.OnGameEnd -= OnGameEnd;
 
 		}
@@ -54,11 +57,16 @@ namespace AmmoStackClone.Controllers
 			}
 		}
 
+		private void OnGameStart()
+		{
+
+		}
+
 		private void OnGameEnd(bool isSuccessful)
 		{
-			if (!isSuccessful)
+			if (isSuccessful)
 			{
-				DOVirtual.DelayedCall(1f, () =>
+				DOVirtual.DelayedCall(3f, () =>
 				{
 					ResetPlayer();
 				});
@@ -88,8 +96,11 @@ namespace AmmoStackClone.Controllers
 
 		public void ResetPlayer()
 		{
-			_initialPosition = new Vector3(0f, 0f, 0f);
-			transform.localPosition = _initialPosition;
+			
+				_initialPosition = new Vector3(0f, 0f, 0f);
+				transform.localPosition = _initialPosition;
+			
+			
 		}
 	}
 }

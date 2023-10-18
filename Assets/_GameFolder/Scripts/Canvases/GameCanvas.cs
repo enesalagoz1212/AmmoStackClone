@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using AmmoStackClone.Managers;
 using TMPro;
+using DG.Tweening;
 
 namespace AmmoStackClone.Canvases
 {
@@ -11,7 +12,8 @@ namespace AmmoStackClone.Canvases
 	{
 		[SerializeField] private Button playButton;
 		[SerializeField] private TextMeshProUGUI levelText;
-
+		[SerializeField] private Image levelImage;
+		[SerializeField] private Image swipeToStartImage;
 		public void Initialize()
 		{
 			playButton.onClick.AddListener(OnPlayButtonClick);
@@ -22,19 +24,22 @@ namespace AmmoStackClone.Canvases
 		{
 			GameManager.OnGameStarted += OnGameStart;
 			GameManager.OnGameReset += OnGameReset;
-
+			GameManager.OnGameEnd += OnGameEnd;
 		}
 
 		private void OnDisable()
 		{
 			GameManager.OnGameStarted -= OnGameStart;
 			GameManager.OnGameReset -= OnGameReset;
+			GameManager.OnGameEnd -= OnGameEnd;
 
 		}
 
 		private void OnGameStart()
 		{
 			UpdateLevelText();
+			levelImage.gameObject.SetActive(true);
+			swipeToStartImage.gameObject.SetActive(true);
 		}
 
 		private void OnGameReset()
@@ -42,16 +47,26 @@ namespace AmmoStackClone.Canvases
 			playButton.gameObject.SetActive(true);
 		}
 
+		private void OnGameEnd(bool isSuccessful)
+		{
+			DOVirtual.DelayedCall(1f, () =>
+			{
+				levelImage.gameObject.SetActive(false);
+
+			});
+
+		}
+
 		private void OnPlayButtonClick()
 		{
 			Debug.Log("OnPlayButtonClick calisti");
 			GameManager.Instance.ChangeState(GameState.Playing);
 			playButton.gameObject.SetActive(false);
+			swipeToStartImage.gameObject.SetActive(false);
 		}
 
 		private void UpdateLevelText()
 		{
-			Debug.Log(PlayerPrefsManager.CurrentLevel);
 			int currentLevel = PlayerPrefsManager.CurrentLevel;
 			levelText.text = "LEVEL " + currentLevel.ToString();
 		}
