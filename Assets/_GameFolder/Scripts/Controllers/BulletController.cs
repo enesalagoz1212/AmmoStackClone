@@ -118,6 +118,7 @@ namespace AmmoStackClone.Controllers
 				other.transform.localScale = scale;
 
 
+				//bullet.transform.SetParent(transform);
 				other.tag = "Player";
 
 			}

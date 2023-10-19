@@ -10,12 +10,17 @@ namespace AmmoStackClone.Canvases
 {
 	public class GameCanvas : MonoBehaviour
 	{
+		private LevelManager _levelManager;
+
 		[SerializeField] private Button playButton;
 		[SerializeField] private TextMeshProUGUI levelText;
 		[SerializeField] private Image levelImage;
 		[SerializeField] private Image swipeToStartImage;
-		public void Initialize()
+		[SerializeField] private Image fullImage;
+		[SerializeField] private Image sliderImage;
+		public void Initialize(LevelManager levelManager)
 		{
+			_levelManager = levelManager;
 			playButton.onClick.AddListener(OnPlayButtonClick);
 
 		}
@@ -37,9 +42,11 @@ namespace AmmoStackClone.Canvases
 
 		private void OnGameStart()
 		{
+			fullImage.fillAmount = 0f;
 			UpdateLevelText();
 			levelImage.gameObject.SetActive(true);
 			swipeToStartImage.gameObject.SetActive(true);
+			sliderImage.gameObject.SetActive(true);
 		}
 
 		private void OnGameReset()
@@ -49,12 +56,13 @@ namespace AmmoStackClone.Canvases
 
 		private void OnGameEnd(bool isSuccessful)
 		{
+			sliderImage.gameObject.SetActive(false);
 			DOVirtual.DelayedCall(1f, () =>
 			{
 				levelImage.gameObject.SetActive(false);
 
 			});
-
+			
 		}
 
 		private void OnPlayButtonClick()
@@ -69,6 +77,15 @@ namespace AmmoStackClone.Canvases
 		{
 			int currentLevel = PlayerPrefsManager.CurrentLevel;
 			levelText.text = "LEVEL " + currentLevel.ToString();
+		}
+
+		private void Update()
+		{
+			if (GameManager.Instance.GameState==GameState.Playing)
+			{
+				float playerPragress = _levelManager.ReturnPlayerProgress();
+				fullImage.fillAmount = playerPragress;
+			}
 		}
 
 	}

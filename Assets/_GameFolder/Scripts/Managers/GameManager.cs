@@ -49,10 +49,10 @@ namespace AmmoStackClone.Managers
 
 		private void GameInitialize()
 		{
-			levelManager.Initialize();
+			levelManager.Initialize(playerController);
 			inputManager.Initialize(playerController);
 			bulletController.Initialize(inputManager, levelManager, bulletCollisionHandler);
-			uiManager.Initialize(inputManager);
+			uiManager.Initialize(inputManager,levelManager);
 			bulletCollisionHandler.Initialize();
 			playerController.Initialize(bulletController);
 

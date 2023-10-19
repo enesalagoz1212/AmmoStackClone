@@ -10,6 +10,7 @@ namespace AmmoStackClone.Controllers
 	{
 		private BulletController _bulletController;
 
+		public Transform childTransform;
 		public GameObject bullets;
 		private Vector3 _initialPosition;
 		public float forwardSpeed;

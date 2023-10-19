@@ -23,10 +23,10 @@ namespace AmmoStackClone.Managers
 			}
 		}
 
-		public void Initialize(InputManager inputManager)
+		public void Initialize(InputManager inputManager ,LevelManager levelManager)
 		{
 			inputCanvas.Initialize(inputManager);
-			gameCanvas.Initialize();
+			gameCanvas.Initialize(levelManager);
 		}
 
 		void Start()

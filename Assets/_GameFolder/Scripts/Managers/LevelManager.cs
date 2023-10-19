@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using AmmoStackClone.Controllers;
 
 namespace AmmoStackClone.Managers
 {
 	public class LevelManager : MonoBehaviour
 	{
 		public static LevelManager Instance { get; private set; }
+		private PlayerController _playerController;
 
 		public GameObject levels;
 		private int _currentLevelIndex;
@@ -16,6 +18,8 @@ namespace AmmoStackClone.Managers
 
 		private GameObject currentLevel;
 
+		private float _firstPlatformPositionZ=0;
+		private float _lastPlatformPositionZ=311;
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -28,8 +32,9 @@ namespace AmmoStackClone.Managers
 			}
 		}
 
-		public void Initialize()
+		public void Initialize(PlayerController playerController)
 		{
+			_playerController = playerController;
 			_currentLevelIndex = PlayerPrefsManager.CurrentLevel;
 		}
 
@@ -81,7 +86,13 @@ namespace AmmoStackClone.Managers
 			currentLevel = Instantiate(nextLevelPrefab, levels.transform);
 		}
 
-
+		public float ReturnPlayerProgress()
+		{
+			Debug.Log("Return to player");
+			var top = (_playerController.childTransform.position.z - _firstPlatformPositionZ);
+			var bottom = (_lastPlatformPositionZ - _firstPlatformPositionZ);
+			return top / bottom;
+		}
 
 		//public void SpawnBullet(Vector3 offset)
 		//{
